@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+<h2>Welcome to Main Page</h2>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+	body {
+	  background-image: url('static/rmit.jpg');
+	  background-repeat: no-repeat;
+	  background-attachment: fixed;  
+	  background-size: cover;
+	}
+	</style>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+    }
+    </style>
+<div class="content">
+    <a class="content" href="{{ url_for('logout') }}">Logout</a>
+</div>
+<div class="column">
+  <div class="column" style="background-color:#aaa;">
+    <h2>User Area</h2>
+    {% if 'name' in request.cookies %}  
+        <h2><p> Hello {{ request.cookies['name'] }}</p></h2>  
+    {% endif %}
+    
+  </div>
+  
+  <div class="column" style="background-color:#bbb;">
+    <form action="/main" method="post">
+    <h2>Subscription Area</h2>
+    <table class ="Query">
+        <tr>
+          <th>Title</th></th>
+        </th><th>Artist</th></th>
+    </th> <th>Year</th></th>
+</th> <th>Image</th></th>
+        </tr>
+        {% if valuesub %} 
+        {% for name in valuesub %}  
+        <tr>
+            <td>{{name['title']}}</td>
+            <td>{{name['artist']}}</td>
+            <td>{{name['year']}}</td>
+            <td> <img src={{name['link']}} height="100" width="100"></td>
+            <div> <td><button  value ={{name['title']}}  name="removebutton" >Remove</button></td></div>
+        </tr>
+        {% endfor %}
+            {% endif %}
+      </table>
+    </form>
+  </div>
+  <div class="column" style="background-color:#ccc;">
+    <h2>Query Area</h2>
+    {% if Error %}  
+    <h2><p> {{Error}}</p></h2>  
+{% endif %}
+    <form action="/main" method="post">
+		<h1>Search</h1>
+		 
+		<label for="">Title:</label>
+		<input type="text" id="Title" name="Title" placeholder="Title"  requied value="{{ request.form['Title'] }}" ><br><br>
+		<label for="text">Artist:</label>
+		<input type="text" id="Artist" name="Artist" placeholder="Artist" requied value="{{ request.form['Artist'] }}"><br><br>
+        <label for="text">Year:</label>
+		<input type="text" id="Year" name="Year" placeholder="Year" requied value="{{ request.form['Year'] }}"><br><br>
+		<div><input type="submit" name="Query" value="Query"><br><br></div>
+        <table class ="Query" >
+          
+            <tr>
+              <th>Title</th></th>
+            </th><th>Artist</th></th>
+        </th><th>Year</th></th>
+    </th><th>Image</th></th>
+            </tr>
+            {% if value %} 
+            {% for name in value %}
+            
+            <tr>
+                
+              <td>{{name['title']}}</td>
+              <td>{{name['artist']}}</td>
+              <td>{{name['year']}}</td>
+              <td> <img src={{name['link']}} height="100" width="100"></td>
+              <div> <td><button  value ={{name['title']}}  name="button" >Subscribe</button></td></div>
+              
+            </tr>
+            {% endfor %}
+            {% endif %}
+          </table>
+        
+
+		
+	</form>
+  </div>
+</div>
+
+</body>
+</html>

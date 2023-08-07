@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Page</title>
+</head>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+	body {
+	  background-image: url('static/rmit.jpg');
+	  background-repeat: no-repeat;
+	  background-attachment: fixed;  
+	  background-size: cover;
+	}
+	</style>
+<body>
+	
+	<form actiom="/main" method="post">
+		<h1>Login Page</h1>
+		{% if Message %}  
+        <h2><p> {{Message}}</p></h2>  
+    {% endif %} 
+		<label for="">Email:</label>
+		<input type="text" id="email" name="email" placeholder="Email"  requied value="{{ request.form['email'] }}" ><br><br>
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password" placeholder="Password" requied value="{{ request.form['password'] }}"><br><br>
+		<input type="submit" value="Submit"><br><br>
+
+		<a href="{{ url_for('signup') }}">New Registration</a>
+	</form>
+	
+</body>
+</html>
